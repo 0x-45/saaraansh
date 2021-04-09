@@ -132,14 +132,14 @@ export default function Tool() {
         </div>
         <div className="sm:w-full lg:w-1/2 flex flex-col items-center justify-start p-4 overflow-auto">
           <div className="h-96 w-full mb-4 overflow-auto border">
-            <ul>
+            <ul className="list-disc">
               {summaryOrTranslated
                 ? summarised
                     ?.replace(/\[...\]/gi, " ")
                     .split(". ")
                     .map((sentence, idx) => (
-                      <li key={idx}>
-                        <b>-</b>
+                      <li key={idx} className="mb-1">
+                        <b className="text-xl font-bold">- </b>
                         {sentence}
                       </li>
                     ))

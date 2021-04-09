@@ -28,7 +28,7 @@ export default function Home() {
             data-aos="fade-up"
             className="md:pt-10 md:w-2/4 flex flex-col self-start p-10 mt-5">
             <div className="text-4xl text-red-500">Saaransh</div>
-            <div className="font-extralight mb-2 text-xl leading-relaxed">
+            <div className="mb-2 text-xl font-normal leading-relaxed">
               India has one the highest adult illiteracy rates, and even the
               educated can find themselves in financial illiteracy. This can
               lead to legal as well as subsequent financial traps. Saaraansh is
