@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav-pill {
+    @apply flex flex-row items-center justify-center w-20 m-2 text-center border-2 border-black rounded-full cursor-pointer hover:bg-red-500 hover:text-white hover:border-white;
+  }
+}
+
+* {
+  /* border: 1px dotted green; */
+}
