@@ -2,6 +2,14 @@ import { FormEvent, useState } from "react";
 import { Layout } from "../components/Layout";
 
 export default function Tool() {
+  const scores = {
+    "P+": "strong positive",
+    P: "positive",
+    NEU: "neutral",
+    N: "negative",
+    "N+": "strong negative",
+    NONE: "without polarity",
+  };
   const languages = {
     en: "English",
     ar: "Arabic",
@@ -25,9 +33,50 @@ export default function Tool() {
   const [translated, setTranslated] = useState<string>(
     "Translated Text appear here"
   );
+  const [sentiment, setSentiment] = useState({
+    score_tag: "score_tag_here",
+    agreement: "agreement_here",
+    subjectivity: "subjectivity_here",
+    confidence: "confidence_here",
+    irony: "irony_here",
+  });
   const [summaryOrTranslated, setSummaryOrTranslated] = useState<boolean>(true);
   const [userText, setuserText] = useState<string>("");
   const [userLines, setUserLines] = useState<number>(10);
+
+  const handleSentiment = async () => {
+    const formdata = new FormData();
+    formdata.append("key", "8b363898e680795f1bee36c2e1c5265e");
+    formdata.append(
+      "txt",
+      summarised
+        .replace(/\[...\]/gi, " ")
+        .replaceAll("-", "")
+        .replaceAll("\n", " ")
+    );
+    formdata.append("lang", "en");
+
+    // const requestOptions = {};
+
+    const response = await fetch("https://api.meaningcloud.com/sentiment-2.1", {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    })
+      .then((response) => response.json())
+      // .then(data => console.log(data.status, data.body))
+      .catch((error) => console.log("error", error));
+    // const body = await response;
+    const { score_tag, agreement, subjectivity, confidence, irony } = response;
+    setSentiment({
+      score_tag,
+      agreement,
+      subjectivity,
+      confidence,
+      irony,
+    });
+    console.log(response);
+  };
 
   const handleSummarise = async () => {
     setSummarised("Loading Summary...");
@@ -42,6 +91,7 @@ export default function Tool() {
       setSummarised(sum.summary);
       setSummaryOrTranslated(true);
       setHasSummed(true);
+      handleSentiment();
     } catch (error) {
       console.log(error);
       setSummarised("An error occured, text not supported");
@@ -148,11 +198,26 @@ export default function Tool() {
           </div>
           <button
             onClick={() => setSummaryOrTranslated(!summaryOrTranslated)}
-            className={`px-6 py-3 font-bold text-white bg-red-500 outline-none ${
+            className={`px-6 py-3 my-6 font-bold text-white bg-red-500 outline-none mb-4 ${
               hasSummed ? "block" : "hidden"
             }`}>
             {!summaryOrTranslated ? "View Summarised" : "View Translated"}
           </button>
+          <div className={`${hasSummed ? "block" : "hidden"}`}>
+            <h5 className="mb-2 text-2xl text-center">Sentiment Analysis</h5>
+            <table className="text-white bg-red-500 border-4 border-collapse border-red-400 rounded-lg">
+              {Object.entries(sentiment).map(([key, value]) => (
+                <tr key={key}>
+                  <td className="px-4 py-1 text-lg italic border border-gray-400">
+                    {key}
+                  </td>
+                  <td className="px-4 py-1 text-lg font-bold uppercase border border-gray-400">
+                    {key !== "score_tag" ? value : scores[value]}
+                  </td>
+                </tr>
+              ))}
+            </table>
+          </div>
         </div>
       </main>
     </Layout>
