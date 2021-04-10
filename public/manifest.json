@@ -7,6 +7,19 @@
   "orientation": "portrait",
   "scope": "/",
   "start_url": "https://saaraansh.netlify.app/",
+  "url": "https://saaraansh.netlify.app/",
+  "screenshots": [
+    {
+      "src": "readme1.png",
+      "sizes": "1920x1080",
+      "type": "image/png"
+    },
+    {
+      "src": "readme2.png",
+      "sizes": "1920x1080",
+      "type": "image/png"
+    }
+  ],
   "icons": [
     {
       "src": "icons/windows10/SmallTile.scale-100.png",
