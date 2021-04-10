@@ -6,7 +6,7 @@
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
-  "start_url": "/",
+  "start_url": ".",
   "icons": [
     {
       "src": "icons/windows10/SmallTile.scale-100.png",
