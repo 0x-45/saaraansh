@@ -1,12 +1,12 @@
 {
-  "name": "Saaraansh You Deserve To Know",
+  "name": "Saaraansh - You Deserve To Know",
   "short_name": "Saaransh",
   "theme_color": "#ef4444",
   "background_color": "#DAE0E6",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
-  "start_url": ".",
+  "start_url": "https://saaraansh.netlify.app/",
   "icons": [
     {
       "src": "icons/windows10/SmallTile.scale-100.png",
