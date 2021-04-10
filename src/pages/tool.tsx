@@ -57,7 +57,9 @@ export default function Tool() {
 
   const handleChangeStatus = ({ meta }, status) => {
     if (status === "headers_received") {
+      setuserText("Recognising text with OCR...");
       alert("Uploaded, recognizing now");
+      setImgUrl(meta.previewUrl);
     } else if (status === "aborted") {
       alert("Something went wrong");
     }
@@ -168,59 +170,58 @@ export default function Tool() {
     <Layout title="Tool">
       <main className="flex flex-wrap max-h-screen">
         <div className="sm:w-full lg:w-1/2 flex flex-col items-center max-h-full p-4">
-          {
-            <>
-              <button
-                onClick={() => setTxtOrImg(true)}
-                className="px-4 py-2 font-bold text-white bg-red-500 outline-none">
-                Use Text
-              </button>
-              <button
-                onClick={() => setTxtOrImg(false)}
-                className="px-4 py-2 font-bold text-white bg-red-500 outline-none">
-                Upload Image
-              </button>
-            </>
-          }
           {txtOrImg ? (
-            <textarea
-              value={userText}
-              onChange={(e) => setuserText(e.target.value)}
-              className="max-h-96 w-full mb-4 border-2"
-              name="user-doc"
-              id="user-doc"
-              cols={30}
-              rows={25}></textarea>
+            <button
+              onClick={() => setTxtOrImg(false)}
+              className="px-4 py-2 font-bold text-white bg-red-500 outline-none">
+              Using uploaded Image
+            </button>
           ) : (
-            <>
-              <Dropzone
-                PreviewComponent={null}
-                getUploadParams={getUploadParams}
-                onChangeStatus={handleChangeStatus}
-                maxFiles={1}
-                multiple={false}
-                canCancel={false}
-                accept="image/jpeg, image/png, image/jpg"
-                inputContent={(files, extra) =>
-                  extra.reject
-                    ? "Only PNG and JPG Image files are allowed"
-                    : "Drop  image here"
-                }
-                styles={{
-                  dropzoneActive: {
-                    borderColor: "green",
-                  },
-                  dropzoneReject: {
-                    borderColor: "red",
-                    backgroundColor: "#DAA",
-                  },
-                  inputLabel: (files, extra) =>
-                    extra.reject ? { color: "red" } : {},
-                }}
-              />
-              <div className="max-h-96 w-full mb-4 border-2">{userText}</div>
-            </>
+            <button
+              onClick={() => setTxtOrImg(true)}
+              className="px-4 py-2 font-bold text-white bg-red-500 outline-none">
+              Using Text
+            </button>
           )}
+          {txtOrImg && (
+            <Dropzone
+              PreviewComponent={null}
+              getUploadParams={getUploadParams}
+              onChangeStatus={handleChangeStatus}
+              maxFiles={1}
+              multiple={false}
+              canCancel={false}
+              accept="image/jpeg, image/png, image/jpg"
+              inputContent={(files, extra) =>
+                extra.reject
+                  ? "Only PNG and JPG Image files are allowed"
+                  : "Drop  image here"
+              }
+              styles={{
+                dropzoneActive: {
+                  borderColor: "green",
+                },
+                dropzoneReject: {
+                  borderColor: "red",
+                  backgroundColor: "#DAA",
+                },
+                inputLabel: (files, extra) =>
+                  extra.reject ? { color: "red" } : {},
+              }}
+            />
+          )}
+          {/* {txtOrImg ? ( */}
+          <textarea
+            value={userText}
+            onChange={(e) => setuserText(e.target.value)}
+            className="max-h-96 w-full mb-4 border-2"
+            name="user-doc"
+            id="user-doc"
+            cols={30}
+            rows={25}></textarea>
+          {/* ) : (
+            <div className="max-h-96 w-full mb-4 border-2">{userText}</div>
+            )} */}
 
           <div className="justify-evenly flex flex-wrap items-center w-full my-6">
             <label htmlFor="" className="mr-2 text-lg font-bold">
