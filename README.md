@@ -2,6 +2,8 @@
 
 <strong>Around the world, millions of adults are unable to read or write, and therefore fall prey to the extremely confusing jargon of lengthy legal documents. India has the highest adult illiteracy rate in the world. According to the latest report published by UNESCO, there are 287 million illiterate adults in India—37 percent of the illiterate population in the entire world. Farmers, manual laborers, and the people below the poverty line don't have access to education, therefore do not understand the legal terms and even can't understand the language of the document which are generally in English, and fall trap to financial debts in many cases. Therefore, we present to you Saaransh</strong>
 
+<p  align="center"><img  src = "https://github.com/0x-45/saaraansh/blob/main/public/logo-text.png"></p>
+
 # What it does 🙌
 
 We built an easy-to-use web app that summarizes the lengthy legal documents into easy-to-understand terms and then convert them to the local language of the individual so that he/she is completely aware of what they are signing for by simpy uploading/taking a picture of the document.
@@ -9,6 +11,9 @@ We built an easy-to-use web app that summarizes the lengthy legal documents into
 The app works like this: The users can submit the documents they want to understand and the app uses an API to process the document and gives the user back a simplified and summarised document in their regional language.
 
 This supplies the user with a much easier-to-understand document with which they can understand the broader terms of the document and can make a decision whether they should go ahead with the agreements or not.
+
+<p  align="center"><img  src = "https://github.com/0x-45/saaraansh/blob/main/public/readme1.png"></p>
+<p  align="center"><img  src = "https://github.com/0x-45/saaraansh/blob/main/public/readme2.png"></p>
 
 # How we built it 💡
 
