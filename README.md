@@ -4,17 +4,17 @@
 
 # What it does 🙌
 
-We will build an easy-to-use web app that summarizes the lengthy legal documents into easy-to-understand terms and then convert them to the local language of the individual so that he/she is completely aware of what they are signing for.
+We built an easy-to-use web app that summarizes the lengthy legal documents into easy-to-understand terms and then convert them to the local language of the individual so that he/she is completely aware of what they are signing for by simpy uploading/taking a picture of the document.
 
 The app works like this: The users can submit the documents they want to understand and the app uses an API to process the document and gives the user back a simplified and summarised document in their regional language.
 
 This supplies the user with a much easier-to-understand document with which they can understand the broader terms of the document and can make a decision whether they should go ahead with the agreements or not.
 
-# How we’ll build it 💡
+# How we built it 💡
 
 1. The website UI/UX will be designed using Figma and then developed with Next.js, The React Framework and Tailwind CSS for UI, Tensorflow.js, Python, and GCP API to translate the summary to the regional language.
 2. We’ll use the open-source framework of Hugging Face to create the document summarizer using Natural Language Processing.
-3. For training our model we used our own image as the train data and tested it in different settings.
+3. We used OCR Tesseract.js to implement the text recognition feature. 
 4. We will implement the Web App using cutting-edge web technologies like NextJs as React framework, nextAuth for handling auth, and Tailwind CSS for rapid prototyping.
 
 # Novelty 🥇
@@ -29,6 +29,21 @@ There is no existing software to create accurate summarization text with transla
 
 #### ➡ Adding more regional languages and adding text-to-speech for the summarized text.
 
+# Help File 💻
+
+-  Clone the repository to your local directory
+- `https://github.com/0x-45/saaraansh`
+
+-  Node.js required in runtime
+-  `npm i`
+
+- Start the live-server 
+- `npm run dev`
+
+-  Voilla the site is up and running on your PC.
+
+-  Ctrl + C to stop the live-server!!
+
 # Tech Stack ⚙
 
 - NEXTjs
@@ -36,11 +51,19 @@ There is no existing software to create accurate summarization text with transla
 - React-Hook-Forms
 - SWR
 - Hugging Face
+- LibreTranslate API
+- OCR Tesseract.js 
 - Web Browser API
 - Google API
 - Python
 - Tensorflow.js
 - Deployed on Vercel
+
+### Try it out 👇🏽
+
+- 👤 [Github](https://github.com/0x-45/saaraansh)
+- 🕸 [The Website](https://saaraansh.netlify.app/)
+
 
 # The team
 
