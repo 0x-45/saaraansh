@@ -103,7 +103,7 @@ export default function Home() {
           make a decision whether they should go ahead with the agreements or
           not.
         </p>
-        <h1 className="my-4 text-4xl font-semibold">How we’ll build it</h1>
+        <h1 className="my-4 text-4xl font-semibold">How we built it</h1>
         <ol className="my-4">
           <li className="my-3">
             <p>
