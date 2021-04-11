@@ -43,6 +43,7 @@ export default function Tool() {
   const [summaryOrTranslated, setSummaryOrTranslated] = useState<boolean>(true);
   const [userText, setuserText] = useState<string>("");
   const [userLines, setUserLines] = useState<number>(10);
+  const [hasSentiment, setHasSentiment] = useState<boolean>(false);
 
   const handleSentiment = async () => {
     const formdata = new FormData();
@@ -127,16 +128,17 @@ export default function Tool() {
   return (
     <Layout title="Tool">
       <main className="flex flex-wrap max-h-screen">
-        <div className="sm:w-full lg:w-1/2 flex flex-col items-center max-h-full p-4">
+        <div className="flex flex-col items-center max-h-full p-4 sm:w-full lg:w-1/2">
           <textarea
             value={userText}
             onChange={(e) => setuserText(e.target.value)}
-            className="max-h-96 w-full mb-4 border-2"
+            className="w-full p-6 mb-4 border-2 max-h-96"
             name="user-doc"
             id="user-doc"
             cols={30}
-            rows={25}></textarea>
-          <div className="justify-evenly flex flex-wrap items-center w-full my-6">
+            rows={25}
+          ></textarea>
+          <div className="flex flex-wrap items-center w-full my-6 justify-evenly">
             <label htmlFor="" className="mr-2 text-lg font-bold">
               No. of Sentences({userLines}):
               <input
@@ -151,27 +153,30 @@ export default function Tool() {
             <button
               disabled={!(userText.length > 0)}
               onClick={handleSummarise}
-              className="px-4 py-2 font-bold text-white bg-red-500 outline-none">
+              className="px-4 py-2 font-bold text-white bg-red-500 outline-none"
+            >
               Get Summary
             </button>
             <button
               onClick={handleTranlate}
               className={`px-4 py-2 font-bold text-white bg-red-500 outline-none ${
                 hasSummed ? "block" : "hidden"
-              }`}>
+              }`}
+            >
               Get Translation
             </button>
           </div>
-          <div className="flex my-12">
-            <label htmlFor="lang-select" className="mx-12 text-xl">
+          <div className="flex">
+            <label htmlFor="lang-select" className="mx-12 text-xl font-bold">
               Select Language
             </label>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
               name="lang-select"
-              className="px-4 py-2 mx-12 outline-none"
-              id="lang-select">
+              className="px-6 py-2 mx-12 font-bold text-white bg-red-500 outline-none"
+              id="lang-select"
+            >
               {Object.entries(languages).map(([key, value]) => (
                 <option key={key} value={key}>
                   {value}
@@ -180,8 +185,8 @@ export default function Tool() {
             </select>
           </div>
         </div>
-        <div className="sm:w-full lg:w-1/2 flex flex-col items-center justify-start p-4 overflow-auto">
-          <div className="h-96 w-full mb-4 overflow-auto border">
+        <div className="flex flex-col items-center justify-start p-4 overflow-auto sm:w-full lg:w-1/2">
+          <div className="w-full px-10 py-6 mb-4 overflow-auto bg-white border h-96">
             <ul className="list-disc">
               {summaryOrTranslated
                 ? summarised
@@ -189,34 +194,52 @@ export default function Tool() {
                     .split(". ")
                     .map((sentence, idx) => (
                       <li key={idx} className="mb-1">
-                        <b className="text-xl font-bold">- </b>
                         {sentence}
                       </li>
                     ))
                 : translated}
             </ul>
           </div>
-          <button
-            onClick={() => setSummaryOrTranslated(!summaryOrTranslated)}
-            className={`px-6 py-3 my-6 font-bold text-white bg-red-500 outline-none mb-4 ${
-              hasSummed ? "block" : "hidden"
-            }`}>
-            {!summaryOrTranslated ? "View Summarised" : "View Translated"}
-          </button>
-          <div className={`${hasSummed ? "block" : "hidden"}`}>
-            <h5 className="mb-2 text-2xl text-center">Sentiment Analysis</h5>
-            <table className="text-white bg-red-500 border-4 border-collapse border-red-400 rounded-lg">
-              {Object.entries(sentiment).map(([key, value]) => (
-                <tr key={key}>
-                  <td className="px-4 py-1 text-lg italic border border-gray-400">
-                    {key}
-                  </td>
-                  <td className="px-4 py-1 text-lg font-bold uppercase border border-gray-400">
-                    {key !== "score_tag" ? value : scores[value]}
-                  </td>
-                </tr>
-              ))}
-            </table>
+          <div className="flex flex-row items-center justify-center">
+            <button
+              onClick={() => setSummaryOrTranslated(!summaryOrTranslated)}
+              className={`px-4 py-2 my-4 font-bold text-white bg-red-500 outline-none mb-4 ${
+                hasSummed ? "block" : "hidden"
+              }`}
+            >
+              {!summaryOrTranslated ? "View Summarised" : "View Translated"}
+            </button>
+            <button
+              className={`px-4 py-2 m-4 font-bold text-white bg-red-500 outline-none ${
+                hasSummed ? "block" : "hidden"
+              }`}
+              onClick={() => {
+                setHasSentiment(!hasSentiment);
+              }}
+            >
+              {" "}
+              {!hasSentiment ? "Show Sentiment" : "Hide Sentiment"}
+            </button>
+          </div>
+        </div>
+        <div
+          className={`${hasSentiment ? "block" : "hidden"} pb-20 mt-4 w-full`}
+        >
+          <h5 className="mb-2 text-2xl text-center">Sentiment Analysis</h5>
+          <div className="flex flex-col items-center justify-center w-full">
+            {Object.entries(sentiment).map(([key, value]) => (
+              <div
+                key={key}
+                className="flex flex-row justify-between w-1/2 px-4 py-2 my-2 border border-gray-500 rounded-lg shadow-lg"
+              >
+                <div className="px-4 py-1 text-lg italic text-red-500">
+                  {key}
+                </div>
+                <div className="px-4 py-1 text-lg font-bold uppercase ">
+                  {key !== "score_tag" ? value : scores[value]}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </main>
