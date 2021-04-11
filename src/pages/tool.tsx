@@ -144,19 +144,22 @@ export default function Tool() {
     }
   };
 
+  const copySummary = async () => {
+    await navigator.clipboard.writeText(summarised);
+  };
+
   return (
     <Layout title="Tool">
       <main className="flex flex-wrap max-h-screen">
-        <div className="flex flex-col items-center max-h-full p-4 sm:w-full lg:w-1/2">
+        <div className="sm:w-full lg:w-1/2 flex flex-col items-center max-h-full p-4">
           <textarea
             value={userText}
             onChange={(e) => setuserText(e.target.value)}
-            className="w-full p-6 mb-4 border-2 focus:outline-none max-h-96 "
+            className="focus:outline-none max-h-96 w-full p-6 mb-4 border-2"
             name="user-doc"
             id="user-doc"
-            rows={25}
-          ></textarea>
-          <div className="flex flex-wrap items-center w-full my-6 justify-evenly">
+            rows={25}></textarea>
+          <div className="justify-evenly flex flex-wrap items-center w-full my-6">
             <label htmlFor="" className="mr-2 text-lg font-bold">
               No. of Sentences({userLines}):
               <input
@@ -171,16 +174,14 @@ export default function Tool() {
             <button
               disabled={!(userText.length > 0)}
               onClick={handleSummarise}
-              className="px-4 py-2 font-bold text-white bg-red-500 focus:outline-none"
-            >
+              className="focus:outline-none px-4 py-2 font-bold text-white bg-red-500">
               Get Summary
             </button>
             <button
               onClick={handleTranlate}
               className={`px-4 py-2 font-bold text-white bg-red-500 focus:outline-none ${
                 hasSummed ? "block" : "hidden"
-              }`}
-            >
+              }`}>
               Get Translation
             </button>
           </div>
@@ -192,9 +193,8 @@ export default function Tool() {
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
               name="lang-select"
-              className="px-6 py-2 mx-12 font-bold text-white bg-red-500 focus:outline-none"
-              id="lang-select"
-            >
+              className="focus:outline-none px-6 py-2 mx-12 font-bold text-white bg-red-500"
+              id="lang-select">
               {Object.entries(languages).map(([key, value]) => (
                 <option key={key} value={key}>
                   {value}
@@ -203,8 +203,15 @@ export default function Tool() {
             </select>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-start p-4 overflow-auto sm:w-full lg:w-1/2">
-          <div className="w-full px-10 py-6 mb-4 overflow-auto bg-white border h-96">
+        <div className="sm:w-full lg:w-1/2 flex flex-col items-center justify-start p-4 overflow-auto">
+          <div className="h-96 relative w-full px-10 py-6 mb-4 overflow-auto bg-white border">
+            {hasSummed && (
+              <div
+                className="w-36 absolute top-0 right-0 py-2 text-sm font-bold text-center text-white -translate-x-full bg-red-500 cursor-pointer"
+                onClick={copySummary}>
+                Copy Summary
+              </div>
+            )}
             <ul className="list-disc">
               {summaryOrTranslated
                 ? summarised
@@ -223,8 +230,7 @@ export default function Tool() {
               onClick={() => setSummaryOrTranslated(!summaryOrTranslated)}
               className={`px-4 py-2 my-4 font-bold text-white bg-red-500 focus:outline-none mb-4 ${
                 hasSummed ? "block" : "hidden"
-              }`}
-            >
+              }`}>
               {!summaryOrTranslated ? "View Summarised" : "View Translated"}
             </button>
             <button
@@ -233,8 +239,7 @@ export default function Tool() {
               }`}
               onClick={() => {
                 setHasSentiment(!hasSentiment);
-              }}
-            >
+              }}>
               {" "}
               {!hasSentiment ? "Show Sentiment" : "Hide Sentiment"}
             </button>
@@ -243,8 +248,7 @@ export default function Tool() {
         <div
           className={`${
             hasSentiment ? "block" : "hidden"
-          } pb-20 mt-4 w-full mx-auto`}
-        >
+          } pb-20 mt-4 w-full mx-auto`}>
           <h5 className="mb-2 text-2xl font-bold text-center">
             Sentiment Analysis
           </h5>
@@ -252,13 +256,12 @@ export default function Tool() {
             {Object.entries(sentiment).map(([key, value]) => (
               <div
                 key={key}
-                className="flex flex-row justify-between w-full px-4 py-2 my-2 border border-gray-500 rounded-lg shadow-lg md:w-1/2"
-              >
+                className="md:w-1/2 flex flex-row justify-between w-full px-4 py-2 my-2 border border-gray-500 rounded-lg shadow-lg">
                 <details className="px-4 py-1 text-lg italic text-red-500">
                   <summary className="focus:outline-none">{key}</summary>
                   <p className="py-2 text-sm text-black">{value[1]}</p>
                 </details>
-                <div className="px-4 py-1 text-lg font-bold uppercase ">
+                <div className=" px-4 py-1 text-lg font-bold uppercase">
                   {key !== "score_tag" ? value[0] : scores[value[0]]}
                 </div>
               </div>
