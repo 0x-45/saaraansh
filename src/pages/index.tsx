@@ -28,7 +28,7 @@ export default function Home() {
             data-aos="fade-up"
             className="flex flex-col self-start p-10 mt-5 md:pt-10 md:w-2/4"
           >
-            <div className="text-4xl text-red-500">Saaransh</div>
+            <div className="text-3xl text-red-500">You Deserve to Know</div>
             <div className="mb-2 text-xl font-normal leading-relaxed">
               India has one the highest adult illiteracy rates, and even the
               educated can find themselves in financial illiteracy. This can
@@ -37,7 +37,7 @@ export default function Home() {
               documents to move ahead with an informed mindset.
             </div>
             <Link href="/tool">
-              <button className="w-1/2 py-2 mx-auto font-bold text-white bg-red-500">
+              <button className="self-end w-1/2 py-2 mx-auto font-bold text-white bg-red-500 rounded-lg">
                 TOOL
               </button>
             </Link>

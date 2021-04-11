@@ -34,12 +34,22 @@ export default function Tool() {
     "Translated Text appear here"
   );
   const [sentiment, setSentiment] = useState({
-    score_tag: "score_tag_here",
-    agreement: "agreement_here",
-    subjectivity: "subjectivity_here",
-    confidence: "confidence_here",
-    irony: "irony_here",
+    score_tag: [
+      "score_tag_here",
+      "Polarity of the element it refers to: global polarity",
+    ],
+    agreement: [
+      "agreement_here",
+      "Marks the agreement between the sentiments detected in the text, the sentence or the segment it refers to",
+    ],
+    subjectivity: ["subjectivity_here", "Marks the subjectivity of the text. "],
+    confidence: [
+      "confidence_here",
+      "Represents the confidence associated with the sentiment analysis performed on the text.",
+    ],
+    irony: ["irony_here", "Indicates the irony of the text."],
   });
+
   const [summaryOrTranslated, setSummaryOrTranslated] = useState<boolean>(true);
   const [userText, setuserText] = useState<string>("");
   const [userLines, setUserLines] = useState<number>(10);
@@ -70,11 +80,20 @@ export default function Tool() {
     // const body = await response;
     const { score_tag, agreement, subjectivity, confidence, irony } = response;
     setSentiment({
-      score_tag,
-      agreement,
-      subjectivity,
-      confidence,
-      irony,
+      score_tag: [
+        score_tag,
+        "Polarity of the element it refers to: global polarity",
+      ],
+      agreement: [
+        agreement,
+        "Marks the agreement between the sentiments detected in the text, the sentence or the segment it refers to",
+      ],
+      subjectivity: [subjectivity, "Marks the subjectivity of the text. "],
+      confidence: [
+        confidence,
+        "Represents the confidence associated with the sentiment analysis performed on the text.",
+      ],
+      irony: [irony, "Indicates the irony of the text."],
     });
     console.log(response);
   };
@@ -132,10 +151,9 @@ export default function Tool() {
           <textarea
             value={userText}
             onChange={(e) => setuserText(e.target.value)}
-            className="w-full p-6 mb-4 border-2 max-h-96"
+            className="w-full p-6 mb-4 border-2 focus:outline-none max-h-96 "
             name="user-doc"
             id="user-doc"
-            cols={30}
             rows={25}
           ></textarea>
           <div className="flex flex-wrap items-center w-full my-6 justify-evenly">
@@ -153,13 +171,13 @@ export default function Tool() {
             <button
               disabled={!(userText.length > 0)}
               onClick={handleSummarise}
-              className="px-4 py-2 font-bold text-white bg-red-500 outline-none"
+              className="px-4 py-2 font-bold text-white bg-red-500 focus:outline-none"
             >
               Get Summary
             </button>
             <button
               onClick={handleTranlate}
-              className={`px-4 py-2 font-bold text-white bg-red-500 outline-none ${
+              className={`px-4 py-2 font-bold text-white bg-red-500 focus:outline-none ${
                 hasSummed ? "block" : "hidden"
               }`}
             >
@@ -174,7 +192,7 @@ export default function Tool() {
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
               name="lang-select"
-              className="px-6 py-2 mx-12 font-bold text-white bg-red-500 outline-none"
+              className="px-6 py-2 mx-12 font-bold text-white bg-red-500 focus:outline-none"
               id="lang-select"
             >
               {Object.entries(languages).map(([key, value]) => (
@@ -203,14 +221,14 @@ export default function Tool() {
           <div className="flex flex-row items-center justify-center">
             <button
               onClick={() => setSummaryOrTranslated(!summaryOrTranslated)}
-              className={`px-4 py-2 my-4 font-bold text-white bg-red-500 outline-none mb-4 ${
+              className={`px-4 py-2 my-4 font-bold text-white bg-red-500 focus:outline-none mb-4 ${
                 hasSummed ? "block" : "hidden"
               }`}
             >
               {!summaryOrTranslated ? "View Summarised" : "View Translated"}
             </button>
             <button
-              className={`px-4 py-2 m-4 font-bold text-white bg-red-500 outline-none ${
+              className={`px-4 py-2 m-4 font-bold text-white bg-red-500  focus:outline-none ${
                 hasSummed ? "block" : "hidden"
               }`}
               onClick={() => {
@@ -223,20 +241,25 @@ export default function Tool() {
           </div>
         </div>
         <div
-          className={`${hasSentiment ? "block" : "hidden"} pb-20 mt-4 w-full`}
+          className={`${
+            hasSentiment ? "block" : "hidden"
+          } pb-20 mt-4 w-full mx-auto`}
         >
-          <h5 className="mb-2 text-2xl text-center">Sentiment Analysis</h5>
+          <h5 className="mb-2 text-2xl font-bold text-center">
+            Sentiment Analysis
+          </h5>
           <div className="flex flex-col items-center justify-center w-full">
             {Object.entries(sentiment).map(([key, value]) => (
               <div
                 key={key}
-                className="flex flex-row justify-between w-1/2 px-4 py-2 my-2 border border-gray-500 rounded-lg shadow-lg"
+                className="flex flex-row justify-between w-full px-4 py-2 my-2 border border-gray-500 rounded-lg shadow-lg md:w-1/2"
               >
-                <div className="px-4 py-1 text-lg italic text-red-500">
-                  {key}
-                </div>
+                <details className="px-4 py-1 text-lg italic text-red-500">
+                  <summary className="focus:outline-none">{key}</summary>
+                  <p className="py-2 text-sm text-black">{value[1]}</p>
+                </details>
                 <div className="px-4 py-1 text-lg font-bold uppercase ">
-                  {key !== "score_tag" ? value : scores[value]}
+                  {key !== "score_tag" ? value[0] : scores[value[0]]}
                 </div>
               </div>
             ))}
