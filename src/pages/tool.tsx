@@ -180,11 +180,17 @@ export default function Tool() {
     }
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     if (imgUrl != null) {
       ExtractTextFromImage();
     }
   });
+=======
+  const copySummary = async () => {
+    await navigator.clipboard.writeText(summarised);
+  };
+>>>>>>> main
 
   return (
     <Layout title="Tool">
@@ -232,7 +238,10 @@ export default function Tool() {
       </div>
       <main className="flex flex-wrap max-h-screen">
         <div className="sm:w-full lg:w-1/2 flex flex-col items-center max-h-full p-4">
+<<<<<<< HEAD
           {/* {txtOrImg ? ( */}
+=======
+>>>>>>> main
           <textarea
             value={userText}
             onChange={(e) => setuserText(e.target.value)}
@@ -285,7 +294,18 @@ export default function Tool() {
           </div>
         </div>
         <div className="sm:w-full lg:w-1/2 flex flex-col items-center justify-start p-4 overflow-auto">
+<<<<<<< HEAD
           <div className="h-96 w-full px-10 py-6 mb-4 overflow-auto bg-white border">
+=======
+          <div className="h-96 relative w-full px-10 py-6 mb-4 overflow-auto bg-white border">
+            {hasSummed && (
+              <div
+                className="w-36 absolute top-0 right-0 py-2 text-sm font-bold text-center text-white -translate-x-full bg-red-500 cursor-pointer"
+                onClick={copySummary}>
+                Copy Summary
+              </div>
+            )}
+>>>>>>> main
             <ul className="list-disc">
               {summaryOrTranslated
                 ? summarised
