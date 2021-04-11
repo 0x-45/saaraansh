@@ -188,53 +188,55 @@ export default function Tool() {
 
   return (
     <Layout title="Tool">
+      <div className="flex items-start">
+        {txtOrImg ? (
+          <button
+            onClick={() => setTxtOrImg(false)}
+            className="focus:outline-none px-4 py-2 mx-8 font-bold text-white bg-red-500">
+            Using uploaded Image
+          </button>
+        ) : (
+          <button
+            onClick={() => setTxtOrImg(true)}
+            className="focus:outline-none px-4 py-2 mx-8 font-bold text-white bg-red-500">
+            Using Text
+          </button>
+        )}
+        {txtOrImg && (
+          <Dropzone
+            PreviewComponent={null}
+            getUploadParams={getUploadParams}
+            onChangeStatus={handleChangeStatus}
+            maxFiles={1}
+            multiple={false}
+            canCancel={false}
+            accept="image/jpeg, image/png, image/jpg"
+            inputContent={(files, extra) =>
+              extra.reject
+                ? "Only PNG and JPG Image files are allowed"
+                : "Drop  image here"
+            }
+            styles={{
+              dropzoneActive: {
+                borderColor: "green",
+              },
+              dropzoneReject: {
+                borderColor: "red",
+                backgroundColor: "#DAA",
+              },
+              inputLabel: (files, extra) =>
+                extra.reject ? { color: "red" } : {},
+            }}
+          />
+        )}
+      </div>
       <main className="flex flex-wrap max-h-screen">
         <div className="sm:w-full lg:w-1/2 flex flex-col items-center max-h-full p-4">
-          {txtOrImg ? (
-            <button
-              onClick={() => setTxtOrImg(false)}
-              className="px-4 py-2 font-bold text-white bg-red-500 outline-none">
-              Using uploaded Image
-            </button>
-          ) : (
-            <button
-              onClick={() => setTxtOrImg(true)}
-              className="px-4 py-2 font-bold text-white bg-red-500 outline-none">
-              Using Text
-            </button>
-          )}
-          {txtOrImg && (
-            <Dropzone
-              PreviewComponent={null}
-              getUploadParams={getUploadParams}
-              onChangeStatus={handleChangeStatus}
-              maxFiles={1}
-              multiple={false}
-              canCancel={false}
-              accept="image/jpeg, image/png, image/jpg"
-              inputContent={(files, extra) =>
-                extra.reject
-                  ? "Only PNG and JPG Image files are allowed"
-                  : "Drop  image here"
-              }
-              styles={{
-                dropzoneActive: {
-                  borderColor: "green",
-                },
-                dropzoneReject: {
-                  borderColor: "red",
-                  backgroundColor: "#DAA",
-                },
-                inputLabel: (files, extra) =>
-                  extra.reject ? { color: "red" } : {},
-              }}
-            />
-          )}
           {/* {txtOrImg ? ( */}
           <textarea
             value={userText}
             onChange={(e) => setuserText(e.target.value)}
-            className="focus:outline-none max-h-96  w-full p-6 mb-4 border-2"
+            className="focus:outline-none max-h-96 w-full p-6 mb-4 border-2"
             name="user-doc"
             id="user-doc"
             rows={25}></textarea>
