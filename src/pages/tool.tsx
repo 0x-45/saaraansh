@@ -153,6 +153,7 @@ export default function Tool() {
       <main className="flex flex-wrap max-h-screen">
         <div className="sm:w-full lg:w-1/2 flex flex-col items-center max-h-full p-4">
           <textarea
+            placeholder="Enter text here ..."
             value={userText}
             onChange={(e) => setuserText(e.target.value)}
             className="focus:outline-none max-h-96 w-full p-6 mb-4 border-2"
